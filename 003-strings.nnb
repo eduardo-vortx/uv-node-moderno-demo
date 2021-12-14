@@ -1,0 +1,193 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Strings\n\n## Métodos\n\n### startsWith\n\nRetorna True se a string inicia com o trecho fornecido"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const lorem = 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'\n\nconsole.log('Começa com Lorem ipsum? ', lorem.startsWith('Lorem ipsum'))\nconsole.log('Começa com LOREM?', lorem.startsWith('LOREM'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### endsWith\n\nRetorna True se a string termina com o texto fornecido"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Termina com adipiscing elit.?', lorem.endsWith('adipiscing elit.'))\nconsole.log('Termina com vortx?', lorem.endsWith('vortx'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### includes\nRetorna True se a string conter o texto fornecido em qualquer parte"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Contem sit amet?', lorem.includes('sit amet'))\nconsole.log('Contem vortx?', lorem.includes('vortx'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### repeat\nRetorna uma nova string, repetindo o texto quantas vezes for informado\n\nNão modifica o texto original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(lorem.repeat(2))\nconsole.log('\\nOrignal: ', lorem)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### padStart\nRecebe um numero e um texto.\nIrá preencher a o início string com aquele texto, até que a string tenha o tamanho exato do número.\n\nNão modifica a string original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(lorem.padStart(100, 'INICIO'))\nconsole.log(lorem)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### padEnd\nRecebe um numero e um texto.\nIrá preencher a o final string com aquele texto, até que a string tenha o tamanho exato do número.\n\nNão modifica a string original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(lorem.padEnd(100, 'FINAL'))\nconsole.log(lorem)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### trimLeft e trimStart\nRetorna uma nova string sem os espaços e quabras de linha do começo da string\n\nO `trimLeft` foi criado e marcado como `depreciado`. O mais recente é o `trimStart`\n\n\nNão modifica a string original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const stringComEspaco = '\\n    \\t restante do texto   \\n   \\t  '\n\nconsole.log(stringComEspaco.trimLeft())\nconsole.log(stringComEspaco.trimStart())\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### trimRight e trimEnd\nRetorna uma nova string sem os espaços e quabras de linha do final da string\n\nO `trimRight` foi criado e marcado como `depreciado`. O mais recente é o `trimEnd`\n\nNão modifica a string original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(stringComEspaco.trimRight())\nconsole.log(stringComEspaco.trimEnd())"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### replaceAll\nRetorna uma nova string substituindo todas as ocorrências de um texto encontradas na string\n\nNão modifica a string original"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const letras = 'A B C A B C A B C'\n\nconsole.log(letras.replaceAll('A', '_'))\nconsole.log(letras.replaceAll('A B', 'JS'))"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Spread operator\nÉ possível utilizar o operador `...` obter um array com cada caracter da string"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayStrings = [...letras]\n\nconsole.log(arrayStrings)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Template Literal"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "O principal recurso é permitir a interpolação de strings.\n\nEm vez de utilizar aspas, utiliza o a acento grave.\n\nAs variáveis são colocadas com entre chaves e com um cifrão no início da chave de abertura"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const valor = 12\nconst stringFormatada = `O valor é ${valor}`\n\nconsole.log(stringFormatada)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### Tagged template literal\nUma maneira de alterar o comportamento de um template literal através de uma função\n\nÉ muito utilizada no React através da biblioteca `styled components`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function tag(partes, var1, var2) {\n  console.log('partes:', partes)\n  console.log('var1:', var1)\n  console.log('var2:', var2)\n\n  return 'mudei o retorno'\n}\n\nconst v1 = 10\nconst v2 = 'teste'\n\ntag`Parte1 ${v1} Parte2 ${v2}`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### Qubra de linha\n\nPermite criar strings com quebra de linha sem a necessidade caracteres de escape"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const stringLiteral = `uma\nstring\ncom\nquebra\nde\nlinha`\n\nconsole.log(stringLiteral)\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

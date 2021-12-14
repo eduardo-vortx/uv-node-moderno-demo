@@ -1,0 +1,277 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Promises\n\nÉ uma maneira mais legível de trabalhar com tarefas assíncronas no JS e evitar o `callback hell` "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething(function(result) {\n    doSomethingElse(result, function(newResult) {\n      doThirdThing(newResult, function(finalResult) {\n        console.log('Got the final result: ' + finalResult);\n      }, failureCallback);\n    }, failureCallback);\n  }, failureCallback);"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething()\n  .then((result) => doSomethingElse(result))\n  .then((newResult) => doThirdThing(newResult))\n  .then((finalResult) => {\n    console.log(`Got the final result: ${finalResult}`)\n  })\n  .catch(failureCallback)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Usando as Promise\n\nPara fazer a função `doSomething` funcionar, precisamos fazer com que ela retorne uma instância de `Promise` \n\nA instância recebe um callkback que possui dois parâmetros: `resolve` e `reject`, respectivamente. Esses parâmetros são funções.\n\nSe o que eu pretendia faze deu certo, executo a função `resolve`, senão executo a função `reject`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function doSomething() {\n  const { ok, result, err } = fazerChamadaHttp()\n\n  return new Promise((resolve, reject) => {\n    if (ok) {\n      resolve(result)\n    } else {\n      reject(err)\n    }\n  })\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## `then`\n\nAs Promises tem um método chamado `then`, que é executado quando quando o callback `resolve` é chamado.\n\nO método `then` recebe dois callbacks como argumento: o primeiro de sucesso (`resolve`) e o segundo de erro (`reject`)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething()\n  .then((result) => doSomethingElse(result), (erro) => console.log(erro))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Automaticamente, o método `then` retorna uma nova Promise, o que nos permite encadear várias vezes o método `then`, uma vez após o outro."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething()\n  .then((result) => doSomethingElse(result), (erro) => console.log(erro))\n  .then((newResult) => doThirdThing(newResult), (erro) => console.log(erro))"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## `catch`\n\nAs promises também têm um método para pegar erros diretamente: `catch`.\n\nSe não for passado um callback de erro para o `then`, então o método `catch` será chamado. Independentemente de quantos `then` existam antes da chamada dele."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething()\n  .then((result) => doSomethingElse(result))\n  .then((newResult) => doThirdThing(newResult))\n  .then((finalResult) => {\n    console.log(`Got the final result: ${finalResult}`)\n  })\n  .catch(failureCallback)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "O `catch` também retorna uma Promise. Ou seja, é possível encadear outros `thens` e `catchs` após um `catch`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "doSomething()\n  .then((result) => doSomethingElse(result))\n  .then((newResult) => doThirdThing(newResult))\n  .catch(failureCallback)\n  .then((result) => doOneMoreThing(result))\n  .then((newResult) => doOtherThing(newResult))\n  .catch(failureCallback)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## `finally`\n\nÉ um método que sempre será executado, independente de a Promise ser resolvida ou rejeitada.\n\nFinally também retorna uma promise..."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let loading = true\n\ndoSomething()\n  .then((result) => doSomethingElse(result))\n  .then((newResult) => doThirdThing(newResult))\n  .catch(failureCallback)\n  .then((result) => doOneMoreThing(result))\n  .then((newResult) => doOtherThing(newResult))\n  .catch(failureCallback)\n  .finally(() => (loading = false))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Métodos Estáticos\n\n## Promise.resolve\nRetorna uma Promise resolvida instantaneamente. Invocará o próximo `then`.\n\nÉ possível passar um argumento para o método, que será passado para o `then`."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Promise.resolve()\nPromise.resolve({ a: 1, b: true })\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Promise.reject\n\nRetorna uma Promise rejeitada instantaneamente. Invocará o próximo `catch`.\n\nÉ possível passar um argumento para o método, que será passado para o `catch`.\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "Promise.reject()\nPromise.reject({ erro: 'deu ruim' })\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Promise.all\n\nRecebe uma lista de promises e executa o `then` quando todas as promises são resolvidas. Caso qualquer uma delas for rejeitada, então executa o `catch`\n\nO `then` recebe uma lista com todos os resultados das Promises e o `catch` recebe o erro da primeira promise que falhou\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "// Executa apenas o then\nlet promises = [Promise.resolve('sucesso'), Promise.resolve('sucesso 2')]\nPromise.all(promises)\n  .then((sucessos) => console.log(sucessos))\n  .catch((erro) => console.log(erro))\n\n// Executa apenas o catch\npromises = [\n  Promise.resolve('ignorado'),\n  Promise.reject('erro'),\n  Promise.reject('erro 2 ignorado'),\n]\nPromise.all(promises)\n  .then((sucessos) => console.log(sucessos))\n  .catch((erro) => console.log(erro))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Promise.allSettled\nRecebe uma lista de promises e executa o `then` quando todas as promises são finalizadas, independentemente se foram resolvidas ou rejeitadas.\n\nO `then` receberá um array com os valores e status das promises."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "promises = [Promise.resolve(1), Promise.reject('erro')]\n\nPromise.allSettled(promises).then((resultados) => {\n  console.log(resultados)\n})\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Promise.any\nRecebe uma lista de promises. Retorna uma promise que é resolvida caso qualquer uma das promises do array foi completada. Porém, é rejeitada caso todas forem rejeitadas."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "promises = [Promise.resolve(10), Promise.resolve(20)]\n\nPromise.any(promises).then(console.log)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Promise.race\n\nRecebe uma lista de promises. Retorna uma promise com o resultado da primeira promise que for finalizada, seja resolvida ou rejeitada."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "promises = [Promise.resolve(10), Promise.resolve('asd')]\n\nPromise.race(promises)\n  .then((sucesso) => console.log('Resolve: ', sucesso))\n  .catch((err) => console.log('Reject: ', err))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Async e Await\n\n`async` e `await` são uma outra maneira de trabalhar com as promises. Desta forma, é possível ter o mesmo resultado, porém escrevendo menos código.\n\nToda função com o modificador `async` retorna uma Promise implicitamente."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "async function funcaoAsync() {\n  return 5\n}\n\nasync function funcaoAsyncComErro() {\n  throw new Error('erro')\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Toda Promise pode ser aguardada com o operador `await`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "funcaoAsync().then(console.log).catch(console.error)\n\nconst resultado = await funcaoAsync()\nconsole.log(resultado)\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "5",
+                                "5",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Se a promise for rejeitada, então o JS irá lançar uma expection. A expection pode ser tratada com um `try/catch` tradicional"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "async function funcaoComErro() {\n  throw new Error('sinqia caiu')\n}\n\ntry {\n  const resultado = await funcaoComErro()\n} catch (erro) {\n  console.log(erro)\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Error: sinqia caiu",
+                                "    at funcaoComErro (<Cell 33> [2, 8])",
+                                "    at <Cell 33> [6, 8]",
+                                "    at <Cell 33> [12, 46]",
+                                "    at Script.runInContext (node:vm:139:12)",
+                                "    at Script.runInNewContext (node:vm:144:17)",
+                                "    at Object.runInNewContext (node:vm:298:38)",
+                                "    at C (/home/eduardo/.vscode-server/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:113345)",
+                                "    at t.execCode (/home/eduardo/.vscode-server/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:114312)",
+                                "    at k.<anonymous> (/home/eduardo/.vscode-server/extensions/donjayamanne.typescript-notebook-2.0.6/out/extension/server/index.js:2:142156)",
+                                "    at k.emit (node:events:390:28)",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> `await` só pode ser usado dentro de funções `async` ou fora de funções quando a funcionalidade `top level await` estiver disponível\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

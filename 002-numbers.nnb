@@ -1,0 +1,60 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Numbers\n\n## Números binários\n\nTemos a possibilidade de declarar números binários de forma literal"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const binary = 0b10\n\nconsole.log(binary)\nconsole.log(binary === 2)\n\nconsole.log('0B111 =', Number('0B111'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Números octais\n\nTemos a possibilidade de declarar números octais de forma literal "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const octal = 0o15\n\nconsole.log(octal)\nconsole.log(octal === 13)\n\nconsole.log('0O222 =', Number('0O222'))"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Numeric separators\n\nPodemos utilizar `_` para declarar números decimais muito extensos\n\nÉ puramente visual, e pode ser colocado em qualquer parte o número"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const numeroExtenso = 10_000_000_000.00_1000\n\nconsole.log(numeroExtenso)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Exponentiation Operator\n\nFoi criado operador `**` para realizar exponenciação."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('2 ** 3:', 2 ** 3)\n\nconsole.log('Math.pow:', Math.pow(2, 3))\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

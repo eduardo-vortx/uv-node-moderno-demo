@@ -1,0 +1,109 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Operadores"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Nullish coalescing (??)\nO operador `??` executa a operação à direita quando a operação à esquerda retornar `null` ou `undefined`\n\n>Similtar ao curto-circuito com `||` e `&&`  , porém não funciona com outros valores `falsy`, como `0`, `false` e strings vazias  "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const nullish = null\n\nconst valor = nullish ?? 42\n\nconsole.log(valor)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Optional chaining (?.) ou Elvis Operator\nÚltil quando se precisar obter uma propriedade ou invocar uma função de um objeto possivelmente null ou undefined\nEm vez de retornar erro, retorna undefined para as propriedades e ignora a chamada da função."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const objComPropNull = {\n  prop: null,\n}\n\nconst propDeNull = objComPropNull.prop?.propDeNull\nobjComPropNull.prop?.funcao()\n\nconsole.log('propDeNull: ', propDeNull)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Optional function call (?.)\nIgnora a chamada de uma função quando ela é null ou undefined"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const undefinedFunc = undefined\n\nundefinedFunc?.()\n\nconsole.log('Nada acontece, não dá erro...')"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Logical Assignment\n\nShorthand para operações de atribuição de valor com curto-circuito"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let asdf = null\n\nasdf = asdf || 25\n\nconsole.log('null || 25:', asdf)\n\nasdf = asdf && 100\nconsole.log('25 && 100:', asdf)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### ||=\nAtribui o valor da direita quando a variável é `falsy`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const obj = {\n  a: 0,\n  b: null,\n  c: 100,\n  d: null,\n  e: undefined,\n}\n\nobj.a ||= 10\nobj.b ||= 20\nobj.c ||= 30\n\nconsole.table(obj)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### &&=\nAtribui o valor da direita quando a variável é `truthy`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "obj.c &&= 200\nobj.d &&= 300\nobj.e &&= 400\n\nconsole.table(obj)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### ??=\nAtribui o valor da direita quando a variável é `null` ou `undefined` "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "obj.c ??= 'show'\nobj.d ??= 300\nobj.e ??= 400\n\nconsole.table(obj)"
+            ],
+            "outputs": []
+        }
+    ]
+}

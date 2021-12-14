@@ -1,0 +1,193 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "## Arrow Functions\n\nArrow functions são uma maneira diferente de ecrever funções no JavaScript. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Arrow function sem parâmetros"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n  // faz alguma coisa\n}\n\n() => {\n  // faz alguma coisa\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Podem ser armazenadas em variáveis, assim como as funções normais"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const func = function normalFunc() {\n  console.log('função normal')\n}\n\nfunc()\n\nconst arrowFunc = () => {\n    console.log('arrow function')\n}\n\narrowFunc()\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Arrow function com parâmetros\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const f1 = (x) => {\n  console.log('f1:', x)\n}\n\nconst f2 = (x, y) => {\n  console.log('f2:', x, y)\n}\n\nf1(1)\nf2(1, 2)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Pode retornar valores"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const somar = (a, b) => {\n  return a + b\n}\n\nconsole.log(somar(4, 6))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Se a função receber exatamente 1 parâmetro, é possível remover os parenteses"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const umParametro = x => {\n  console.log('sem parenteses: ', x)\n}\n\numParametro(5)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Se a função tiver apenas 1 linha no corpo, também é possível remover as chaves e o return.\n\n> desta forma, o resultado da expressão sempre será retornado\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const comChaves = (x) => {\n  return x + 1\n}\n\nconst semChaves = x => x + 1\n\nconsole.log(semChaves(3))\n\nconst retrornaUndefined = () => console.log('print dentro da arrow function')\n\nconsole.log(retrornaUndefined())\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## `This` em arrow functions funciona de um jeito um pouco diferente\n\nEm funções do JS, a palavra revervada `this` representa o objeto a quem a função pertence"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const thisGlobalzao = this\n\nfunction funcaoGlobal() {\n  console.log('Função Global', this === thisGlobalzao)\n}\n\nfuncaoGlobal()\n\nconst objComFuncao = {}\n\nobjComFuncao.func = function () {\n  console.log('Função Local', this === thisGlobalzao)\n  console.log('This === objeto? ', this === objComFuncao)\n}\n\nobjComFuncao.func()\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Em arrow functions, `this` sempre irá apontar para o contexto do momento que a função foi definida"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const objComArrowFunc = {}\n\nobjComArrowFunc.arrowFunc = () => {\n  console.log('Arrow Func: ', this === thisGlobalzao)\n  console.log('This === objComArrowFunc? ', this === objComArrowFunc)\n}\n\nobjComArrowFunc.arrowFunc()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Default Parameters\n\nOs parâmetros de uma função sempre foram opcionais. Mas agora, é possível definir valores predefinidos para um parâmetro, para quando nenhum argumento é passado."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function multiplicar(a, b = 2) {\n    return a * b\n}\n\nconsole.log('3 * 3: ', multiplicar(3, 3))\nconsole.log('3 * ?: ', multiplicar(3))"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "O valor default será usado sempre que o parâmetro receber `undefined` ou não receber nenhum valor\n\n> Por boa prática, o normal é utilizar valores default nos últimos parâmetros da função."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function subtrair(a = 1, b) {\n  return a - b\n}\n\nconsole.log('undefined - 5:', subtrair(undefined, 5))\nconsole.log('null - 5:', subtrair(null, 5))\nconsole.log('7 - 5:', subtrair(7, 5))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Rest Parameters\n\nPermite passar diversos valores como argumento, mas recebê-los em apenas 1 parâmetro."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function restParameters(...args) {\n  console.log(args)\n}\n\nrestParameters(1, 2, 'abacate', false)\nrestParameters()\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> Rest parameter sempre deve ser o último parâmetro da função"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function ultimoParametro(a, b, c, ...outros) {\n  console.log(a, b, c, outros)\n}\n\nultimoParametro(1, 2, 3, 'pim', 5, 6, 7, 'pim')\n\n// function primeiroParametro(...a, b, c) {\n//     console.log(a, b, c)\n// }\n\n// primeiroParametro(1, 2, 3, 'pim')\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Também é possível usar a desestruturação de objetos e arrays nos parâmetros das funções "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const desestruturaObjeto = ({ a, b }) => {\n  console.log('Objeto: ', a, b)\n}\n\ndesestruturaObjeto({ a: 1, b: false })\n\nconst desestruturaArray = ([a, b, ...c]) => {\n  console.log('Array: ', a, b, c)\n}\n\ndesestruturaArray([1, 3, 5, 7, 8])\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

@@ -1,0 +1,116 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Classes\n\nClasses em JS são um `syntax-sugar` para as funções construtoras.\n\nFunções construtoras são funções responsáveis por criar tipos complexos.\n\nA intenção de adicionar classes ao JavaScript é simplificar a criação dos tipos complexos, apesar de ambos gerarem o mesmo resultado."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class A {\n  constructor(prop) {\n    this.prop = prop\n  }\n}\n\nfunction B(prop) {\n  this.prop = prop\n}\n\nconsole.log(typeof A)\n\nconst a = new A(1)\nconst b = new B(1)\n\nconsole.log('Instancia de A: ', a)\nconsole.log('Instancia de B: ', b)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Classes podem ter apenas 1 construtor, com ou sem parâmetros\n\nSe o construtor não for definido, será criado automaticamente um construtor vazio"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Construtor {\n  constructor() {}\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Propriedades devem ser definidas dentro do construtor e dos métodos da classe, e são acessíveis via `this`\n\n> Dentro das classes, o this sempre se refere à instância da classe"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Propriedades {\n  constructor() {\n    this.prop = 1\n  }\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Métodos\nMétodos são definidos no corpo da classe e também são acessíveis via `this`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Metodos {\n  salvarTexto(texto) {\n    this.texto = texto\n  }\n}\n\nconst metodos = new Metodos()\n\nmetodos.salvarTexto('alo')\n\nconsole.log(metodos.texto)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Métodos podem ser estáticos, o que possibilita que sejam invodados sem a necessidade de criar uma instância da classe.\n\n> Métodos estáticos não têm acesso a outros métodos não estáticos da classe, e toda propriedade que ele acessar será estática também"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class MetodoEstatico {\n  static estatico(valor) {\n    this.valor = (this.valor || 0) + valor\n    console.log('meu método estático')\n  }\n\n  print() {\n    console.log(this.valor)\n  }\n}\n\nMetodoEstatico.estatico(1)\nMetodoEstatico.estatico(1)\nconsole.log(MetodoEstatico.valor)\n\nconst instancia = new MetodoEstatico()\ninstancia.print()\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Classes podem ter getters e setters"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class GetSet {\n  get valor() {\n    return this.valorInterno\n  }\n\n  set valor(v) {\n    this.valorInterno = v\n  }\n}\n\nconst gs = new GetSet()\n\ngs.valor = 'teste'\n\nconsole.log(gs.valor)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Classes são extensíveis\nÉ possível utilizar herança de classes com `extends`\n\nSe a subclasse tiver um construtor, ela precisará chamaar a função especial `super`, que invocará o construtor da classe base.\n\n`super` também serve como uma propriedade especial que acessa explicitamente os métodos da classe base."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Base {\n  constructor(valor) {\n    this.valor = valor\n  }\n\n  imprimirValor() {\n    console.log('Base: ', this.valor)\n  }\n}\n\nclass Subclasse extends Base {\n  constructor(numero, valor) {\n    super(valor)\n    this.numero = numero\n  }\n\n  imprimirValor() {\n    console.log('Subclasse')\n    super.imprimirValor()\n  }\n}\n\nconst sub = new Subclasse(1, 'a')\nsub.imprimirValor()\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Métodos e propriedades privadas\n\nPodem ser criados com um `#` no início do seu nome\n\nPropriedades privadas são definidas no corpo da classe, não dentro das funções"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "class Privado {\n  #prop\n\n  #metodoPrivado() {\n    console.log('Sou privado: ', this.#prop)\n  }\n\n  publico() {\n    this.#prop = 'privado'\n    this.#metodoPrivado()\n  }\n}\n\nconst priv = new Privado()\n\npriv.publico()\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

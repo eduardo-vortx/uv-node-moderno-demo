@@ -1,0 +1,326 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Arrays\n\nAssim como os Objetos, existem duas maneiras de criar um Array em JS: Com a função construtora e com a sintaxe literal"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> A função construtora recebe um argumento: o tamanho do array. Este argumento é opcional e não interfere no tamanho total do array, apenas no tamanho inicial.\n\n> Um array literal pode ser inicializado com ou sem valores iniciais"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayComFuncaoConstrutora = new Array(5)\n\nconst arrayLiteral = [1, 2, 'teste', 'ola', 'mundo']\n\nconsole.log('funcao construtora: ', arrayComFuncaoConstrutora)\nconsole.log('literal: ', arrayLiteral)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Para acessar um item do array, acessamos os itens através do índice.\n> O índice sempre começa do Zero."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log(arrayLiteral[0])\nconsole.log(arrayLiteral[1])\nconsole.log(arrayLiteral[2])"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## For-Of\n\nPermite iterar por arrays a partir dos valores. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "for (let indice = 0; indice < arrayLiteral.length; indice++) {\n  console.log(arrayLiteral[indice])\n}\n\nconsole.log('-----')\n\nfor (let valor of arrayLiteral) {\n  console.log(valor)\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Não confundir For-In com For-Of\nExiste uma sintaxe parecida com o `for-of` chamada `for-in`. Porém, ao contrário do `for-of`, o `for-in` atua nos índices, não nos valores. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('For Of')\nfor (let valor of arrayLiteral) {\n  console.log(valor)\n}\n\nconsole.log('-----')\n\nconsole.log('For in')\nfor (let indice in arrayLiteral) {\n  console.log(indice)\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> For-In também funciona com objetos. Ele retorna os nomes das propriedades."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const objeto = {\n  prop: 1,\n  teste: false,\n  ok: 'ok',\n}\n\nfor (let valor in objeto) {\n    console.log(valor)\n}"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Métodos de Array\n\nOs array do JavaScript possuem vários métodos para trabalhar com seus elementos."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### entries\nRetorna um `array iterator` contendo pares ordenados ([index, valor]) do array.\n\n> No JS, `iterators` são objetos iteraveis (compativeis com for-of), que implementam o metodo `next`, que devolve o próximo valor e se já chegou ao fim da lista."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayEntries = arrayLiteral.entries()\n\n// for (let entry of arrayEntries) {\n//   console.log(entry)\n// }\n\n\nconsole.log(arrayEntries.next())\nconsole.log(arrayEntries.next())\nconsole.log(arrayEntries.next())\nconsole.log(arrayEntries.next())\nconsole.log(arrayEntries.next())\nconsole.log(arrayEntries.next())\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### values\nSimilar ao `entries`, mas devolve um iterator apenas com os valores."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayValues = arrayLiteral.values()\n\nfor (let value of arrayValues) {\n  console.log(value)\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### keys\nSimilar ao `entries`, mas devolve um iterator apenas com os indices."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayKeys = arrayLiteral.keys()\n\nfor (let key of arrayKeys) {\n  console.log(key)\n}"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### flat\nRetorna um array contendo todos os elementos que não são arrays e os elementos dos subarrays, deixando todos os elementos no mesmo nível de profundidade.\nPode receber um parametro informando qual a produnfidade a ser `achatada`. Por padrão, será de 1 nível."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arrayComSubarray = [1, 2, 3, [4], [5], [6, 7, [8, 9]]]\n\nconsole.log(arrayComSubarray.flat())\nconsole.log(arrayComSubarray.flat(2))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### includes\nRetorna True caso encontre determinado elemento no array. Senão, retorna false."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Contem mundo?', arrayLiteral.includes('mundo'))\nconsole.log('Contem cavalo?', arrayLiteral.includes('cavalo'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### forEach\nRecebe uma função e itera por cada elemento do array aplicando essa função. É o mesmo que fazer um `for`, porém sem a opção de parar a iteração no meio."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let array = [1, 2, 3, 4, 5, 6]\n\narray.forEach(function (elemento, indice, arrayInteiro) {\n  console.log(elemento, indice, arrayInteiro)\n})\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### map\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nRetorna um novo array contendo os retornos da função para cada iteração do array."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const resultados = array.map(function (elemento, indice, arrayInteiro) {\n  return { elemento, indice, arrayInteiro }\n})\n\nconsole.log(resultados)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### filter\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nA função deve retornar um booleano.\nRetorna um novo array contendo apenas os elementos cujo resultado da função foi `True` "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const numerosPares = array.filter(function (elemento, _indice, _arrayInteiro) {\n  return elemento % 2 === 0\n})\n\nconsole.log(numerosPares)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### reduce\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nO retorno de cada itração, é passado como parâmetro para a próxima iteração. \nO resultado da última itração é retornado pela função."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let array = [1, 2, 3, 4]\n\nconst soma = array.reduce(function (valorAnterior, valorAtual, _indice, _arrayInteiro) {\n  return valorAnterior + valorAtual\n}, 0)\n\nconsole.log(soma)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### find\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nA função deve retornar um booleano.\nRetorna o primeiro item que fizer a função retornar True"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const resultado = array.find(function (elemento, _indice, _arrayInteiro) {\n  return elemento % 2 === 0\n})\n\nconsole.log(resultado)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### every\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nA função deve retornar um booleano.\nRetorna True se no final todos os itens fizeram a função retornar true\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const todosSaoPares = array.every(function (elemento, _indice, _arrayInteiro) {\n  return elemento % 2 === 0\n})\n\nconsole.log('todos sao pares? ', todosSaoPares)\n\nconst todosSaoMenoresQue10 = array.every(function (\n  elemento,\n  _indice,\n  _arrayInteiro\n) {\n  return elemento < 10\n})\n\nconsole.log('todos sao menores que 10?', todosSaoMenoresQue10)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### some\nRecebe uma função e itera por cada elemento do array aplicando essa função. \nA função deve retornar um booleano.\nRetorna True se ao menos um elemento fizer a funcão retornar True\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const algumEhPar = array.some(function (elemento, _indice, _arrayInteiro) {\n  return elemento % 2 === 0\n})\n\nconsole.log(algumEhPar)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### fill\nPreenche as posições do array com um valor fixo. É possível dizer qual a posição inicial e qual a final a ser preenchida."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]\n\narray.fill(0)\nconsole.log(array)\n\narray.fill('A', 2, 5)\nconsole.log(array)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Array Destructuring\n\nTambém é possível desestruturar os arrays, assim como os objetos.\nOs valores são obtidos pela posição"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const novoArray = [1, 2, 3, 4, 5]\n\nconst [item1, item2] = novoArray\n\nconsole.log(item1, item2)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "É possível obter todos os demais itens usando o `rest operator`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const [primeiro, ...outros] = novoArray\n\nconsole.log('Demais itens', outros)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Os valores podem ser pulados"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const [valor1, , valor3] = [1, 2, 3, 4]\n\nconsole.log(valor1, valor3)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### Spread\n\nÉ possível passar todos os itens de um array para outro utilizando o `spread`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const spreadArray = [...novoArray, 10, 20, 30]\n\nconsole.log(spreadArray)\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

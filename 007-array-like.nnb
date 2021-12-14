@@ -1,0 +1,208 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Array-Like\n\nSão estruturas muito similares com os arrays, porém eles contém algumas diferenças"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "# Map\nÉ uma estrutura que armazena informações com base em Chave/Valor. \nEnquanto as chaves dos objetos são sempre strings, o `Map` permite usar chaves de qualquer tipo de dados.\n\nPara acessar e adicionar novos valores, existem os métodos `get` e `set`, respectivamente.\n\nTambém tem a propriedade `size`, que informa quantos itens estão no Map."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const map = new Map()\n\nconst obj = {\n  prop: 1,\n}\n\nmap.set(true, 1)\nmap.set(obj, 2)\n\nconsole.log('Map: ', map)\n\nconsole.log('Chave true:', map.get(true))\nconsole.log('Chave obj:', map.get(obj))\n\nconsole.log('Size: ', map.size)\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Map:  Map(2) { true => 1, { prop: 1 } => 2 }",
+                                "Chave true: 1",
+                                "Chave obj: 2",
+                                "Size:  2",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Utilizar a sintaxe de colchetes (`map['chave']`) não é recomendável, pois pode gerar comportamentos inesperados, já que a chave será convertida para String."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Get', map.get(true))\nconsole.log('Colchetes: ', map[true])\n\nmap[false] = 'errado'\n\nconsole.log('Colchetes com string: ', map['false'])\nconsole.log('Map: ', map)\n"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "Get 1",
+                                "Colchetes:  undefined",
+                                "Colchetes com string:  errado",
+                                "Map:  Map(2) { true => 1, { prop: 1 } => 2, false: 'errado' }",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Map é iteravel via `for-of`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "for (let item of map) {\n    console.log(item)\n}"
+            ],
+            "outputs": [
+                {
+                    "items": [
+                        {
+                            "mime": "application/vnd.code.notebook.stdout",
+                            "value": [
+                                "[ true, 1 ]",
+                                "[ { prop: 1 }, 2 ]",
+                                ""
+                            ]
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Também possui os métodos `values` e `keys`, que retornam os valores e chaves, respectivamente"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Keys')\n\nmap = new Map([\n  [1, 'a'],\n  [2, 'ab'],\n  [true, 'abc'],\n])\n\nfor (let key of map.keys()) {\n  console.log(key)\n}\n\nconsole.log('---')\nconsole.log('Values')\n\nmap = new Map([\n  [1, 'a'],\n  [2, 'ab'],\n  [true, 'abc'],\n])\n\nfor (let value of map.values()) {\n  console.log(value)\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### has\nMétodo que retorna True caso a chave exista no Map"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "map = new Map([\n  [1, 'a'],\n  [2, 'ab'],\n  [true, 'abc'],\n])\n\nconsole.log('Obj:', map.has(2))\nconsole.log('teste: ', map.has('teste'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### delete\nMétodo que remove uma chave específica"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Antes de remover:', map)\n\nmap.delete(true)\n\nconsole.log('Depois de remover:', map)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### clear\nRemove todas as chaves do Map"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "map.clear()\n\nconsole.log(map)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Set\n\nSet é uma estrutura que armazena valores únicos.\n\nPossui os métodos `add` e `delete`, que adiciona e remove valores, respectivamente.\n\nSe tentar adicionar um valor que já existe, nada acontece.\nSe tentar remover um valor que não existe, nada acontece.\n\nSet possui a propriedade `size`, que informa a quantidade de valores armazenados."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const set = new Set([1, 2, 3, 3, 4, 5])\n\nconsole.log('Set criado: ', set)\n\nset.add(6)\nset.add(1)\n\nconsole.log('Set add 6 e 1: ', set)\n\nset.delete(5)\nset.delete(5)\n\nconsole.log('Set delete 5: ', set)\n\nconsole.log('Size: ', set.size)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Sets também podem ser iterados com `for-of` e tbm possui os métodos `values`, `entries` e `keys`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "console.log('Items: ')\nset = new Set(['a', 'b', 'c'])\nfor (let item of set) {\n  console.log(item)\n}\n\nconsole.log('Values: ')\nset = new Set(['a', 'b', 'c'])\nfor (let value of set.values()) {\n  console.log(value)\n}\n\nconsole.log('Entries: ')\nset = new Set(['a', 'b', 'c'])\nfor (let entry of set.entries()) {\n  console.log(entry)\n}\n\nconsole.log('Keys: ')\nset = new Set(['a', 'b', 'c'])\nfor (let key of set.keys()) {\n  console.log(key)\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### has\nPossui o método `has`, que verifica se um valor está presente no Set"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "set = new Set([1, 2, 3])\nconsole.log('3 está presente? ', set.has(3))\nconsole.log('25 está presente? ', set.has(25))\nconsole.log('\"teste\" está presente? ', set.has('teste'))\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "### clear\nPossui o métod `clear`, que remove todos os itens"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "set.clear()\n\nconsole.log('Set vazio:', set)\n"
+            ],
+            "outputs": []
+        }
+    ]
+}

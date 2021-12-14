@@ -1,0 +1,193 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Variáveis\n\nCriação das palavras reservadas `let` e `const` para criação de variáveis"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Var\n- Tipagem fraca e dinâmica"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "var a\n\na = 1;\nconsole.log(a, typeof a)\n\na = true\nconsole.log(a, typeof a)\n\na = 'teste'\nconsole.log(a, typeof a)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "- Escopo de função\n\n> A variável `a` é acessível dentro e fora da funcão `f`. Porém, a variável `b` apenas é acessível dentro da função `f`."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "var variavelGlobal = 1;\n\nfunction f () {\n    console.log('Global: ', variavelGlobal)\n    variavelGlobal = 'novo valor'\n\n    var local = 2\n    console.log('Local: ', local)\n}\n\nf()\n\nconsole.log('Global: ', variavelGlobal)\nconsole.log('Local: ', local)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "- Hoisting: comportamento do JavaScript que faz com que uma declaração de uma variável seja sempre movida para o início do escopo\n\n> A variável `naoExiste` nunca foi criada."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    console.log(naoExiste)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> A variável `criadaDepois` é utilizada antes de ser declarada, porém não é um problema, uma vez que o hoisting faz com que todas as declarações aconteçam no início do escopo.\n\n> Porém, seu valor será `undefined` até que haja uma atribuição."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    console.log(criadaDepois)\n    \n    var criadaDepois = 'um valor qualquer'\n    \n    console.log(criadaDepois)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Let e Const\n- Continuam com tipagem dinâmica\n- `let` permite reatribuir um valor, enquanto `const` não permite\n- Uma variável criada com `const` sempre deve ter um valor atribuído a ela no momento da criação "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "let criadaComLet;\n\ncriadaComLet = 'teste'\nconsole.log(criadaComLet)\n\ncriadaComLet = true\nconsole.log(criadaComLet)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> Variáveis criadas com `const` exigem que um valor seja definido na inicialização"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const criadaComConst;\nconsole.log(criadaComConst)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> Não é possível atribuir um novo valor a uma variável criada com `const`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const comConst = 1;\nconsole.log(comConst)\n\n// Não deveria funcionar, mas a extensão do VS Code é limitada 😐\ncomConst = 'teste'\nconsole.log(comConst)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`let` e `const` possuem escopo de bloco, delimitados por `{` e `}`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> A variável criada com `var` existe dentro de fora do `if`, pois `if` não é uma função. \n\n> Porém, as variáveis criadas com `let` e `const`, que seguem o escopo de bloco, ficam inacessíveis fora do `if`."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "if (true) {\n    var varExiste = true\n    let letNaoExiste = true\n    const constTbmNao = true\n\n    console.log('Var, Let e Const: ', varExiste, letNaoExiste, constTbmNao)\n}\n\nconsole.log('Var: ', varExiste)\nconsole.log('Let e const dão ruim: ', letNaoExiste, constTbmNao)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`let` e `const` não são afetados pelo hoisting"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    console.log(meuLet)\n    let meuLet = 1\n    console.log(meuLet)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    let meuLet = 1\n    console.log(meuLet)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    const meuConst = 1\n    console.log(meuConst)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "function f() {\n    console.log(meuConst)\n    const meuConst = 1\n    console.log(meuConst)\n}\n\nf()"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Objetos e arrays criados com `const` também não permitem reatribuição de valores, mas permitem que seus valores sejam alterados:\n\n> É possível atribuir novos valores às propriedades dos objetos"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const obj = {\n    prop: 1\n}\n\nconsole.log(obj.prop)\n\nobj.prop = 'outro valor'\n\nconsole.log(obj.prop)\n\n// Não deveria funcionar, mas a extensão do VS Code é limitada 😐\nobj = {\n    prop: 'atribuicao direta não funciona'\n}\n\nconsole.log(obj.prop)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> É possível adicionar, modificar e remover valores de arrays normalmente"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const arr = new Array()\n\narr.push(1)\nconsole.log(arr)\n\narr[1] = 'teste'\nconsole.log(arr)\n\narr.pop()\nconsole.log(arr)"
+            ],
+            "outputs": []
+        }
+    ]
+}

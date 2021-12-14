@@ -1,0 +1,305 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Objetos\n\nNo JavaScript tudo é um objeto: valores primitivos (números, strings), funções, classes e etc. Todos eles possuem métodos, propriedades e podem ser passados como argumento para uma função. "
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> As duas maneiras mais comuns de se criar objetos são através da função construtora / classe Object e através da sintaxe literal\n\n> A sintaxe literal é preferível, por ser mais simples de ler e escrever. Porém, ambas produzem o mesmo resultado."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "   const funcaoConstrutora = new Object({\n       prop: 1\n   })\n\n   console.log(funcaoConstrutora)\n\n   const literal = {\n       prop: 1\n   }\n\n   console.log(literal)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Shorthand methods\n Uma `syntax sugar` para definir uma função como um membro de um objeto"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const shorthandMethods = {\n    funcaoComum: function() {\n    },\n    funcaoComShorthand() {\n    }\n}\n\nconsole.log(shorthandMethods)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Computed Properties\numa maneira de definir o nome de uma propriedade através do valor de uma variável"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const variavelComNome = 'nome da propriedade'\n\nconst computed = {\n  [variavelComNome]: 'valor da propriedade',\n}\n\nconsole.log(computed)\n\ncomputed['nome da propriedade'] = false\n\nconsole.log(computed[variavelComNome])\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "> É possível utilizar qualquer string válida como nome de uma propriedade. Independentemente se segue as regras de nomenclatura de variáveis"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Accessor properties\nPossibilidade de definir Getters e Setters"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const getterSetter = {\n  _value: 1,\n\n  get value() {\n    return this._value\n  },\n  set value(x) {\n    this._value = x + 1\n  },\n  set carlos(x) {\n      this._value = x * 2\n  }\n}\n\nconsole.log(getterSetter.value)\ngetterSetter.value = 5\nconsole.log(getterSetter.value)\ngetterSetter.carlos = 7\nconsole.log(getterSetter.value)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Object Destructuring e Object Rest / Spread properties\n\nHá a possibilidade de criar um objeto a partir de variáveis já existentes.\n\n> Se a variável possuir o mesmo nome da propriedade desejada, é possível omitir a duplicidade do nome da variável e o simbolo `:`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const numeroTelefone = '99123 5555'\nconst documento = '34534-22'\nconst nomeCompleto = 'carlos'\nconst idade = 123\n\nconst pessoa = {\n  nome: nomeCompleto,\n  idade: idade,\n  telefone: numeroTelefone,\n  documento,\n  endereco: 'Desconhecido',\n}\n\nconsole.log(pessoa)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Podemos obter as propriedades desse objeto através da `desconstrução`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const { endereco } = pessoa\n\nconsole.log('Endereço:', endereco)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Também podemos renomear as propriedades desconstruídas"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const { nome: nomeDaPessoa, idade: idadeDaPessoa } = pessoa\n\nconsole.log('Nome da pessoa:', nomeDaPessoa)\nconsole.log('Idade da pessoa:', idadeDaPessoa)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Se tentar obter uma propriedade que não existe, esta terá o valor `undefined`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const { telefone, algumaCoisaQueNaoTem } = pessoa\n\nconsole.log('Telefone:', telefone)\nconsole.log('Alguma coisa que não tem:', algumaCoisaQueNaoTem)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "É possível obter todas as demais propriedades em uma nova variavel"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const { endereco, ...restante } = pessoa\n\nconsole.log('Endereço:', endereco)\nconsole.log('Demais propriedades:', restante)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Também é possível copiar propriedades de um objeto para outro através do `Spread properties (...)`. Irá copiar todos os valores, que podem ser substituídos."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const outraPessoa = {\n    ...pessoa,\n    animal: 'cachorro',\n    nome: 'Maria'\n}\n\nconsole.log(outraPessoa)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "É possível utilizar o spread com quaisquer tipos de propriedades. Porém, se essa propriedade não for um tipo primitivo (number, string, boolean), será feita a `shallow copy`. O que significa que não será copiado o valor, mas sim o endereço de memória para aquela propriedade."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const primeiroObjeto = {\n    nome: 'teste',\n    segundoNivel: {\n        idade: 20\n    },\n}\n\nconst segundoObjeto = { ...primeiroObjeto }\n\nprimeiroObjeto.nome = 'Carlos'\nprimeiroObjeto.segundoNivel.idade = 30\n\nconsole.log('Primeiro objeto:', primeiroObjeto)\nconsole.log('Segundo objeto:', segundoObjeto)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Para resolver esse problema, pode-se desconstruir o objeto interno manualmente, ou converter o objeto para json e depois para um objeto novamente."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const terceiroObjeto = {\n  ...primeiroObjeto,\n  segundoNivel: { ...primeiroObjeto.segundoNivel },\n}\n\nconst json = JSON.stringify(primeiroObjeto)\nconst quartoObjeto = JSON.parse(json)\n\nprimeiroObjeto.nome = 'Vacilo'\nprimeiroObjeto.segundoNivel.idade = 100\n\nconsole.log('Primeiro objeto:', primeiroObjeto)\nconsole.log('Segundo objeto:', segundoObjeto)\nconsole.log('Terceiro objeto:', terceiroObjeto)\nconsole.log('Quarto objeto:', quartoObjeto)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Também é possível desconstruir uma propriedade que é um objeto"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const {\n  segundoNivel: { idade },\n} = primeiroObjeto\n\nconsole.log(idade)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Métodos estáticos\n\nA classe Object recebeu diversos métodos estáticos bem úteis para o dia a dia:"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.assign` copia as propriedades e valores de um ou mais objetos para um objeto destino.\n\n`Object.assing` retorna o objeto modificado"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const origem = { prop: 1 }\nconst destino = { isOk: true };\n\nObject.assign(destino, origem)\n\nconsole.log('origem: ', origem)\nconsole.log('destino: ', destino)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.entries` retorna um array de pares ordenados ([chave, valor], tupla) das propriedades do objeto"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const data = {\n  dia: 20,\n  mes: 10,\n  ano: 2021,\n}\n\nconst entries = Object.entries(data)\nconsole.log(entries)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.fromEntries` cria um novo objeto a partir de uma lista de pares ordenados ([chave, valor])."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const chaveValor = [\n  ['primeiro', 1],\n  ['segundo', 'teste'],\n  ['terceiro', false],\n]\n\nconst objeto = Object.fromEntries(chaveValor)\n\nconsole.log(objeto)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.freeze` congela um objeto, impedindo que este objeto possa ser modificado."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const obj = {\n    teste: true\n}\n\nobj.ola = 'mundo'\n\nObject.freeze(obj)\n\nobj.ola = 'teste'\nobj.novaProp = 'propriedade nova'\n\nconsole.log(obj)"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.isFrozen` retorna True quando o objeto está congelado, e False caso contrário"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const objetoCongelado = Object.freeze({\n    prop: 1\n})\n\nconst objetoNaoCongelado = {}\n\nconsole.log('objetoCongelado: ', Object.isFrozen(objetoCongelado))\nconsole.log('objetoNaoCongelado: ', Object.isFrozen(objetoNaoCongelado))"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.values` retorna uma lista com os valores das propriedades de um objeto"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const valores = Object.values({\n  prop: 1,\n  outraProp: false,\n  func: function () {},\n})\n\nconsole.log(valores)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "`Object.keys` retorna uma lista com as os nomes das propriedades de um objeto"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const propriedades = Object.keys({\n    prop: 1,\n    outraProp: true,\n    func: function() {\n    }\n})\n\nconsole.log(propriedades)"
+            ],
+            "outputs": []
+        }
+    ]
+}

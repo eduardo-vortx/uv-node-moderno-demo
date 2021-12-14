@@ -1,0 +1,109 @@
+{
+    "cells": [
+        {
+            "language": "markdown",
+            "source": [
+                "# Módulos\n\nQuando o node foi criado, não era possível ler arquivos a partir de outro arquivo JS. Todos os arquivos eram carregados no navegador diretamente.\n\nEntão o time do node criou o `Common JS`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const moduloImportado = require('./arquivo.js')\n\nfunction funcao() {\n  moduloImportado.fazAlgumaCoisa()\n}\n\nmodule.exports = {\n  minhaFuncao: funcao,\n}\n\nexports.minhaFuncao = funcao\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Com o ES2015, foi criado um sistema de módulos para o JS, chamado de `es modules`\n\nOs módulos nativos do JavaScript suportam várias maneiras de importar e exportar funçoes, classes, variáveis, objetos e etc."
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Exportação e Importação padrão\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import funcaoImportada from './arquivo.js'\n\nexport default function func() {\n    funcaoImportada()\n}"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Exportação e Importação de vários itens\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import {\n  variavelImportada,\n  ClasseImportada,\n  funcaoImportada,\n} from './arquivo.js'\n\nexport let variavel = 1\n\nexport class Classe {}\n\nexport function f() {\n  funcaoImportada(variavelImportada)\n  return new ClasseImportada()\n}\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Exportação e Importação com renomeação"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import { funcaoComUmNome as funcao } from './arquivo.js'\n\nconst objetoComUmNomeMuitoGrande = {\n  prop: 1,\n}\n\nexport { objetoComUmNomeMuitoGrande as obj }\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## Importação de todo o módulo\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "import * as moduloInteiro from './arquivo.js'"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "## `import` pode ser usada como uma função que retorna uma Promises, logo é possível usar `await` e `then`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "javascript",
+            "source": [
+                "const modulo = await import('./arquivo.js')\n\nimport('./arquivo.js')\n  .then((m) => console.log(m))\n  .catch(console.error)\n"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "markdown",
+            "source": [
+                "Para utilizar o `es-modules`, precisa colocar o tipo do pacote como `module` no arquivo `package.json`"
+            ],
+            "outputs": []
+        },
+        {
+            "language": "html",
+            "source": [
+                "{\n  \"name\": \"projeto\",\n  \"version\": \"1.2.0\",\n  \"type\": \"module\",\n}"
+            ],
+            "outputs": []
+        }
+    ]
+}
